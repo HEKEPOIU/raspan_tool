@@ -26,13 +26,12 @@ void loop() {
   int switchState = digitalRead(SWPIN);
   int photocellReading0 = analogRead(LIGHTPIN);
 
-  if (photocellReading0 > 700){
+  if (photocellReading0 > 700) {
     tone(BUZZPIN, 1000);
-  }
-  else{
+  } else {
     noTone(BUZZPIN);
   }
-  
+
   Serial.println(photocellReading0);
   if (switchState == LOW) {
     // switch is closed

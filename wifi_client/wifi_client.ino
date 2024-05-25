@@ -40,7 +40,7 @@ void loop() {
 
   // Check if there's data available from server
   if (client.available()) {
-    String message = client.readStringUntil('\n'); // Read message until newline character
+    String message = client.readStringUntil('\r\n'); // Read message until newline character
     Serial.println(message);
   }
 
