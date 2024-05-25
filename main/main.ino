@@ -4,12 +4,16 @@
 
 #define BUZZPIN 10
 
+#define SWPIN 7
+
 void setup() {
   pinMode(ZPIN, INPUT_PULLUP);
   pinMode(XPIN, INPUT);
   pinMode(YPIN, INPUT);
   pinMode(BUZZPIN, OUTPUT);
-  Serial.begin(19200);           //  setup serial
+  pinMode(SWPIN, INPUT);
+
+  Serial.begin(19200); //  setup serial
 }
 
 void loop() {
@@ -17,6 +21,15 @@ void loop() {
   int y = analogRead(YPIN);
   int z = digitalRead(ZPIN);
   tone(BUZZPIN, 1200);
+  int switchState = digitalRead(SWPIN);
+
+  if (switchState == LOW) {
+    // switch is closed
+    Serial.println("Switch 1");
+  } else if (switchState == HIGH) {
+    // switch is open
+    Serial.println("Switch 0");
+  }
   Serial.print(x + String(" "));
   Serial.print(y + String(" "));
   Serial.println(z);
