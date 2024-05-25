@@ -1,7 +1,7 @@
 
-#define ZPIN 5
-#define YPIN 16
-#define XPIN 17
+#define ZPIN 2
+#define YPIN 14
+#define XPIN 15
 
 void setup() {
   pinMode(ZPIN, INPUT_PULLUP);

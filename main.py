@@ -1,7 +1,8 @@
 import serial
 
 
-serialPort = "/dev/ttyUSB0"
+# serialPort = "/dev/ttyUSB0"
+serialPort = "/dev/ttyACM0"
 baudRate = 19200
 
 ser = serial.Serial(serialPort, baudRate, timeout=0.5)
