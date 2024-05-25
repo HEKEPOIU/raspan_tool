@@ -11,7 +11,7 @@ def handle_client(connect: socket, addr, delay: float = 0.5) -> None:
             print(e)
             print("[*] Client %s disconnected" % str(addr))
             break
-        connect.close()
+    connect.close()
 
 
 
