@@ -5,18 +5,19 @@ import time
 def handle_client(connect: socket, addr, delay: float = 0.5) -> None:
     while True:
         try:
-            connect.send(bytes("hello!", "utf-8"))
+            connect.send(bytes("hello!\n", "utf-8"))
             time.sleep(delay)
         except Exception as e:
             print(e)
             print("[*] Client %s disconnected" % str(addr))
             break
+        connect.close()
 
 
 
 bind_ip = "0.0.0.0"
 bind_port = 9999
-delay_time = 0.5
+delay_time = 0.1
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
