@@ -1,6 +1,7 @@
 import socket
 import threading
 
+
 class SocketServer:
     def __init__(self, bind_ip: str = "0.0.0.0", bind_port: int = 9999, delay_time: float = 0.1):
         self.bind_ip = bind_ip

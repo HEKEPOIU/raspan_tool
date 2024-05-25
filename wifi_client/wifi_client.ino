@@ -1,5 +1,7 @@
 #include <ESP8266WiFi.h>
 
+#define RAZER 5 
+
 // WiFi credentials
 const char* ssid = "FBI";
 const char* password = "yourfriendlyneighbor";
@@ -12,6 +14,7 @@ WiFiClient client;
 
 void setup() {
   Serial.begin(115200);
+  pinMode(RAZER, OUTPUT);
   
   // Connect to Wi-Fi
   WiFi.begin(ssid, password);
@@ -26,6 +29,8 @@ void setup() {
 }
 
 void loop() {
+  
+
   if (!client.connected()) {
     Serial.println("Connecting to server...");
     if (client.connect(serverIP, serverPort)) {
@@ -42,6 +47,18 @@ void loop() {
   if (client.available()) {
     String message = client.readStringUntil('\r\n'); // Read message until newline character
     Serial.println(message);
+    if(message.startsWith("Switch")){
+      int spaceIndex = message.indexOf(' ');
+      if (spaceIndex != -1) {
+        // 提取空格后的子字符串
+        String numberString = message.substring(spaceIndex + 1);
+        
+        // 将子字符串转换为整数
+        int number = numberString.toInt();
+        digitalWrite(RAZER, number);
+      }
+    }
+
   }
 
 }

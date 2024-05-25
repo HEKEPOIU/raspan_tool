@@ -10,8 +10,14 @@ def _handle_client(conn: socket, addr, delay_time: float, ser) -> None:
     while True:
         try:
             mess = ser.readline()
+            mess_list = str(mess)[2:-5].split(' ')
+            for mess_data in mess_list:
+                if mess_data.isnumeric():
+                    # print(mess_data)
+                    if int(mess_data) > 700:
+                        print("hit!!")
             conn.send(mess)
-            # print(mess)
+            # print(mess_list)
         except Exception as e:
             print(e)
             print("[*] Client %s disconnected" % str(addr))
@@ -36,8 +42,8 @@ if __name__ == '__main__':
     t = threading.Thread(target=server.wait_for_client, args=(_handle_client,ser))
     t.start()
     print("参数设置：串口=%s ，波特率=%d" % (serialPort, baudRate))
-    while 1:
-        pass
+    t.join()
         
-
     ser.close()
+
+    
