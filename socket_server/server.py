@@ -29,25 +29,6 @@ class SocketServer:
         self.data = data
 
 
-    # def run(self, handle: callable, data:bytes) -> None:
-    #     # print("Waiting for client")
-    #     try:
-    #         try:
-    #             conn, addr = self.server.accept()
-    #             print(f"[*] Connection accepted from {addr}")
-    #             t = threading.Thread(target=handle, args=(conn, addr, self.delay_time, data))
-    #             t.start()
-    #         except Exception as e:
-    #             print(e)
-    #             pass
-    #     except KeyboardInterrupt:
-    #         print("Stopped by Ctrl+C")
-    #     finally:
-    #         self.server.close()
-            # print("Server closed")
-
-    
-
     def __del__(self):
         self.server.close()
         print("Server closed")
