@@ -26,7 +26,7 @@ void loop() {
   int switchState = digitalRead(SWPIN);
   int photocellReading0 = analogRead(LIGHTPIN);
 
-  if (photocellReading0 > 700) {
+  if (photocellReading0 > 850) {
     tone(BUZZPIN, 1000);
   } else {
     noTone(BUZZPIN);
@@ -40,7 +40,7 @@ void loop() {
     // switch is open
     Serial.println("Switch 0");
   }
-  Serial.print(x + String(" "));
+  Serial.print("xyz" + String(" ") + x + String(" "));
   Serial.print(y + String(" "));
   Serial.println(z);
 }

@@ -14,7 +14,7 @@ def _handle_client(conn: socket, addr, delay_time: float, ser) -> None:
             for mess_data in mess_list:
                 if mess_data.isnumeric():
                     # print(mess_data)
-                    if int(mess_data) > 700:
+                    if int(mess_data) > 850:
                         print("hit!!")
             conn.send(mess)
             # print(mess_list)
