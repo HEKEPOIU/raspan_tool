@@ -11,11 +11,11 @@ def _handle_client(conn: socket, addr, delay_time: float, ser) -> None:
         try:
             mess = ser.readline()
             mess_list = str(mess)[2:-5].split(' ')
-            for mess_data in mess_list:
-                if mess_data.isnumeric():
-                    # print(mess_data)
-                    if int(mess_data) > 850:
-                        print("hit!!")
+            if not(mess_list[0].startswith("Switch") or mess_list[0].endswith("xyz")):
+                for mess_data in mess_list:
+                        # print(mess_data)
+                        if int(mess_data) > 750:
+                            print("hit!!")
             conn.send(mess)
             # print(mess_list)
         except Exception as e:

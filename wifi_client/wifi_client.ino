@@ -5,17 +5,17 @@
 #define BACKWARD 15 // 8
 
 // WiFi credentials
-const char *ssid = "Panasonic_ELUGA_C";
-const char *password = "poiuytre";
+const char *ssid = "FBI";
+const char *password = "yourfriendlyneighbor";
 
 // Server IP and port
-const char *serverIP = "192.168.25.66"; // Replace with your server IP address
+const char *serverIP = "192.168.50.90"; // Replace with your server IP address
 const uint16_t serverPort = 9999;       // Replace with your server port number
 
 WiFiClient client;
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(115200); 
   pinMode(RAZER, OUTPUT);
   pinMode(FORWARD, OUTPUT);
   pinMode(BACKWARD, OUTPUT);
@@ -33,8 +33,8 @@ void setup() {
 }
 
 void loop() {
-  digitalWrite(FORWARD, HIGH);
-  digitalWrite(BACKWARD, LOW);
+  // digitalWrite(FORWARD, HIGH);
+  // digitalWrite(BACKWARD, LOW);
   if (!client.connected()) {
     Serial.println("Connecting to server...");
     if (client.connect(serverIP, serverPort)) {
@@ -51,7 +51,7 @@ void loop() {
   if (client.available()) {
     String message =
         client.readStringUntil('\r\n'); // Read message until newline character
-    Serial.println(message);
+    // Serial.println(message);
     if (message.startsWith("Switch")) {
       int spaceIndex = message.indexOf(' ');
       if (spaceIndex != -1) {
@@ -86,16 +86,17 @@ void loop() {
           int y = numberString2.toInt();
           int z = numberString3.toInt();
 
-          digitalWrite(ENABLE, LOW);
           // 这里可以根据转换后的整数执行相应的操作
-          if (x > 1000) {
+          if (x > 750) {
             digitalWrite(FORWARD, HIGH);
             digitalWrite(BACKWARD, LOW);
-          } else if (x < 100) {
+          }
+          else if (x < 300) {
             digitalWrite(FORWARD, LOW);
             digitalWrite(BACKWARD, HIGH);
 
-          } else {
+          }
+           else {
             digitalWrite(FORWARD, HIGH);
             digitalWrite(BACKWARD, HIGH);
           }

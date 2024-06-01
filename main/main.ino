@@ -26,7 +26,7 @@ void loop() {
   int switchState = digitalRead(SWPIN);
   int photocellReading0 = analogRead(LIGHTPIN);
 
-  if (photocellReading0 > 850) {
+  if (photocellReading0 > 750) {
     tone(BUZZPIN, 1000);
   } else {
     noTone(BUZZPIN);
