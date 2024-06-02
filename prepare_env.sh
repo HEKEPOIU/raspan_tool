@@ -9,6 +9,7 @@ sudo apt install python3
 sudo apt install python3-venv
 
 python3 -m venv venv
+SCRIPT_DIR=$(dirname "$0")
 . "$SCRIPT_DIR/venv/bin/activate"
 
 pip install -r requirement.txt
