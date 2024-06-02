@@ -1,2 +1,4 @@
 /raspan_tool
 /open-source
+/venv
+*.pyc

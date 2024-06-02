@@ -1,44 +1,34 @@
 import socket
 import threading
-import time
-
-def handle_client(connect: socket, addr, delay: float = 0.5) -> None:
-    while True:
-        try:
-            connect.send(bytes("hello!\n", "utf-8"))
-            time.sleep(delay)
-        except Exception as e:
-            print(e)
-            print("[*] Client %s disconnected" % str(addr))
-            break
-    connect.close()
 
 
+class SocketServer:
+    def __init__(self, bind_ip: str = "0.0.0.0", bind_port: int = 9999, delay_time: float = 0.1):
+        self.bind_ip = bind_ip
+        self.bind_port = bind_port
+        self.delay_time = delay_time
+        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.data = None
+        self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.server.bind((self.bind_ip, self.bind_port))
+        self.server.listen(5)
+        print("[*] Listening on %s:%d" % (self.bind_ip, self.bind_port))
 
-bind_ip = "0.0.0.0"
-bind_port = 9999
-delay_time = 0.1
+    def wait_for_client(self, handle: callable, ser) -> None:
+        while True:
+            try:
+                conn, addr = self.server.accept()
+                print(f"[*] Connection accepted from {addr}")
+                t = threading.Thread(target=handle, args=(conn, addr, self.delay_time, ser))
+                t.start()
+            except Exception as e:
+                print(e)
+                pass
 
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    def set_data(self, data:bytes) -> None:
+        self.data = data
 
-server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # solution for "[Error 89] Address already in use". Use before bind()
-server.bind((bind_ip, bind_port))
 
-server.listen(5)
-
-print("[*] Listening on %s:%d" % (bind_ip, bind_port))
-
-try:
-    while True:
-        print("Waiting for client")
-        conn, addr = server.accept()
-        print("Client:", addr)
-        
-        t = threading.Thread(target=handle_client, args=(conn, addr, delay_time))
-        t.start()
-    
-except KeyboardInterrupt:
-    print("Stopped by Ctrl+C")
-finally:
-    if server:
-        server.close()
+    def __del__(self):
+        self.server.close()
+        print("Server closed")
